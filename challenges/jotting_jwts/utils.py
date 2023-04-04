@@ -25,9 +25,15 @@ async def submit_app():
     r = await httpx.post(api_submission_endpoint, json=app_url_data)
     print(f'[+++] Sent app url. Recieved: {r.text}')
 
-def decode_jwt(encoded, jwt_secret):
+def decode_jwt(encoded_token, jwt_secret):
     try:
-        append_string = jwt.decode(encoded, jwt_secret,algorithms=['HS256'], verify=False)['append']
+        decoded_token= jwt.decode(encoded_token, jwt_secret, algorithms=['HS256'], verify=False)
+        append_string = decoded_token.get('append')
+        if append_string:
+            return (append_string, True)
+        else:
+            print(f'[+++] Final token recieved.')
+            return (None, True) 
     except Exception as e:
         print(f"[!!!] Could not decode token. Error: {e}")
-    return append_string
+        return (None, False)
