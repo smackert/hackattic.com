@@ -11,21 +11,23 @@ app = FastAPI()
 @app.on_event("startup")
 async def startup_event():
     global secret_string, jwt_secret
-    secret_string = ''
+    solution = ''
     jwt_secret = utils.get_jwt_secret()
     asyncio.create_task(utils.submit_app())
 
 @app.post("/", response_class=Response)
 async def root(request: Request):
-    global secret_string, jwt_secret
+    global solution, jwt_secret
     request_data = await request.body()
     print(f"[+++] New post request: {request_data} with {type(request_data)}")
-    try:
-        append_string = utils.decode_jwt(request_data, jwt_secret)
+    append_string, is_finalToken = utils.decode_jwt(request_data, jwt_secret)
+    if append_string:
         print(f"[+++] New append string: {append_string}")
-        secret_string = secret_string + append_string
-    except:
-        print(f"[+++] Request ignored")
-    return  request_data
+        solution = solution + append_string
+    elif is_finalToken:
+        asyncio.create_task(utils.submit_solution())
+    else:
+        print(f"[+++] String could not be read. Ignoring")
+        return None
 
 
