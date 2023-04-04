@@ -25,9 +25,8 @@ async def root(request: Request):
         print(f"[+++] New append string: {append_string}")
         solution = solution + append_string
     elif is_finalToken:
-        asyncio.create_task(utils.submit_solution(solution))
+        await utils.submit_solution(solution)
     else:
         print(f"[+++] String could not be read. Ignoring")
-        return None
 
 
