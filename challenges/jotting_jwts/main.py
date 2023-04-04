@@ -20,7 +20,7 @@ async def root(request: Request):
     global solution, jwt_secret
     request_data = await request.body()
     # print(f"[+++] New post request: {request_data} with {type(request_data)}")
-    append_string, is_finalToken = utils.decode_jwt(request_data, jwt_secret)
+    append_string, is_finalToken = await utils.decode_jwt(request_data, jwt_secret)
     if append_string:
         print(f"[+++] New append string: {append_string}")
         solution = solution + append_string
