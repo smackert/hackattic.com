@@ -13,7 +13,7 @@ base_url = 'https://hackattic.com/challenges/jotting_jwts'
 api_problem_endpoint = base_url + '/problem?access_token=' + access_token
 api_submission_endpoint = base_url + '/solve?access_token=' + access_token
 
-def get_jwt_secret():
+async def get_jwt_secret():
     r = requests.get(api_problem_endpoint)
     jwt_data = json.loads(r.text)
     print(f'[+++] Got jwt secret: {jwt_data["jwt_secret"]}')

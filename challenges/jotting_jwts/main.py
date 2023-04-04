@@ -12,7 +12,7 @@ async def startup_event():
     global solution, jwt_secret
     global time_start
     solution = ''
-    jwt_secret = utils.get_jwt_secret()
+    jwt_secret = await utils.get_jwt_secret()
     time_start = time.time()
     asyncio.create_task(utils.submit_app())
 
