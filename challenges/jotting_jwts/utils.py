@@ -7,8 +7,8 @@ import jwt
 
 load_dotenv()
 access_token = os.getenv('HACKATTIC_ACCESS_TOKEN')
+app_url = os.getenv('MY_APP_URL')
 
-app_url = 'https://8c0f-143-244-54-137.eu.ngrok.io/'
 base_url = 'https://hackattic.com/challenges/jotting_jwts'
 api_problem_endpoint = base_url + '/problem?access_token=' + access_token
 api_submission_endpoint = base_url + '/solve?access_token=' + access_token

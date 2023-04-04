@@ -1,10 +1,10 @@
-from fastapi import FastAPI, Request, Body
+from fastapi import FastAPI, Request 
+import uvicorn
 import utils
-from starlette.requests import Request
 from starlette.responses import Response
 import asyncio
 import time
-import json 
+import json
 
 
 app = FastAPI()
@@ -33,4 +33,5 @@ async def root(request: Request):
     else:
         print(f"[+++] String could not be read. Ignoring")
 
-
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=80)
