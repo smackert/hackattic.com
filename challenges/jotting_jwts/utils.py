@@ -31,7 +31,7 @@ async def submit_app():
 
 async def decode_jwt(encoded_token, jwt_secret):
     try:
-        decoded_token= jwt.decode(encoded_token, jwt_secret, algorithms=['HS256'], verify=False)
+        decoded_token= jwt.decode(encoded_token, jwt_secret, algorithms=['HS256'])
         append_string = decoded_token.get('append')
         if append_string:
             return (append_string, True)
