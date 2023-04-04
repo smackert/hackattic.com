@@ -40,10 +40,3 @@ async def decode_jwt(encoded_token, jwt_secret):
     except Exception as e:
         print(f"[!!!] Could not decode token. Error: {e}")
         return (None, False)
-
-async def submit_solution(solution):
-    print(f"[+++] Submitting solution: {solution}")
-    solution_data = {'solution': solution, 'app_url': app_url}
-    async with httpx.AsyncClient() as client:
-        r = await client.post(api_submission_endpoint, json=solution_data)
-    print(f"[+++] Soluton submitted. Result: {r.text}")
