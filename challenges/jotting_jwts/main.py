@@ -19,13 +19,14 @@ async def startup_event():
 async def root(request: Request):
     global solution, jwt_secret
     request_data = await request.body()
-    print(f"[+++] New post request: {request_data} with {type(request_data)}")
+    # print(f"[+++] New post request: {request_data} with {type(request_data)}")
     append_string, is_finalToken = utils.decode_jwt(request_data, jwt_secret)
     if append_string:
         print(f"[+++] New append string: {append_string}")
         solution = solution + append_string
     elif is_finalToken:
-        await utils.submit_solution(solution)
+        asyncio.create_task(utils.submit_solution(solution))
+        return None
     else:
         print(f"[+++] String could not be read. Ignoring")
 

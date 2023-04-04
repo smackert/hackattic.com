@@ -24,13 +24,12 @@ async def submit_app():
     app_url_data = {'app_url': app_url}
     try:
         async with httpx.AsyncClient(timeout=1) as client:
-            await client.post(api_submission_endpoint, json=app_url_data)
-            print(f"Submitted app url. Response: {r.text}")
+            r = await client.post(api_submission_endpoint, json=app_url_data)
     except httpx.TimeoutException:
         print("Timedout")
     # print(f'[+++] Sent app url. Recieved: {r.text}')
 
-def decode_jwt(encoded_token, jwt_secret):
+async def decode_jwt(encoded_token, jwt_secret):
     try:
         decoded_token= jwt.decode(encoded_token, jwt_secret, algorithms=['HS256'], verify=False)
         append_string = decoded_token.get('append')
