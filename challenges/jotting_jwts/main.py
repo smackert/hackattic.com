@@ -10,7 +10,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startup_event():
-    global secret_string, jwt_secret
+    global solution, jwt_secret
     solution = ''
     jwt_secret = utils.get_jwt_secret()
     asyncio.create_task(utils.submit_app())
@@ -25,7 +25,7 @@ async def root(request: Request):
         print(f"[+++] New append string: {append_string}")
         solution = solution + append_string
     elif is_finalToken:
-        asyncio.create_task(utils.submit_solution())
+        asyncio.create_task(utils.submit_solution(solution))
     else:
         print(f"[+++] String could not be read. Ignoring")
         return None
