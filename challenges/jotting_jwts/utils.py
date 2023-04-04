@@ -27,7 +27,6 @@ async def submit_app():
             r = await client.post(api_submission_endpoint, json=app_url_data)
     except httpx.TimeoutException:
         print("Timedout")
-    # print(f'[+++] Sent app url. Recieved: {r.text}')
 
 async def decode_jwt(encoded_token, jwt_secret):
     try:
