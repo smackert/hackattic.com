@@ -22,8 +22,8 @@ def get_jwt_secret():
 async def submit_app():
     print(f'[+++] Submitting app url...')
     app_url_data = {'app_url': app_url}
-    r = await httpx.post(api_submission_endpoint, json=app_url_data)
-    print(f'[+++] Sent app url. Recieved: {r.text}')
+    await httpx.post(api_submission_endpoint, json=app_url_data)
+    # print(f'[+++] Sent app url. Recieved: {r.text}')
 
 def decode_jwt(encoded_token, jwt_secret):
     try:
@@ -37,3 +37,9 @@ def decode_jwt(encoded_token, jwt_secret):
     except Exception as e:
         print(f"[!!!] Could not decode token. Error: {e}")
         return (None, False)
+
+async def submit_solution(solution):
+    print(f"[+++] Submitting solution: {solution}")
+    solution_data = {'solution': solution}
+    r = httpx.post(api_submission_endpoint, json=solution_data)
+    print(f"[+++] Soluton submitted. Result: {r.text}")
