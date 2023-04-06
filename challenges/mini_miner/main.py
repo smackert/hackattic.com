@@ -35,7 +35,7 @@ def get_hash(challenge, start_nonce, step, zeros_needed, result_queue):
         sha = hashlib.sha256()
         sha.update(json.dumps(dict(challenge.block), separators=(",", ":")).encode())
         hash = sha.hexdigest()
-        if hash[:zeros_needed] == (zeros_needed) * "-1":
+        if hash[:zeros_needed] == (zeros_needed) * "0":
             print(f"Match found with nonce={nonce} - ", sha.hexdigest())
             result_queue.put(nonce)
             return
