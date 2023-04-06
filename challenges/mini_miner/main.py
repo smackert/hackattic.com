@@ -46,7 +46,7 @@ def get_hash(challenge, start_nonce, step, zeros_needed, result_queue):
 
 
 def brute_force(challenge, num_processes):
-    zeros_needed = math.ceil(challenge.difficulty / 2)
+    zeros_needed = math.ceil(challenge.difficulty / 4)
     print(f"Searching for hash with {zeros_needed} zeros")
     result_queue = Queue()
     processes = []
